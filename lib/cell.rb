@@ -1,16 +1,19 @@
+# frozen_string_literal: true
+
 class Cell
   DIRECTIONS = [
-    [0, -1], 
-    [-1, -1], 
-    [-1, 0], 
-    [-1, 1], 
-    [0, 1], 
-    [1, 1], 
-    [1, 0], 
+    [0, -1],
+    [-1, -1],
+    [-1, 0],
+    [-1, 1],
+    [0, 1],
+    [1, 1],
+    [1, 0],
     [1, -1]
-  ]
-  
+  ].freeze
+
   attr_accessor :live, :x, :y, :universe_size, :universe
+
   def initialize(x, y, universe)
     @x = x
     @y = y
@@ -33,11 +36,10 @@ class Cell
   private
 
   def neighbours
-    DIRECTIONS.reduce([]) do |result, direction|
+    DIRECTIONS.each_with_object([]) do |direction, result|
       nr = x + direction[0]
       nc = y + direction[1]
       result << universe.cells[nr][nc] if inside_the_universe(nr, nc)
-      result
     end
   end
 
